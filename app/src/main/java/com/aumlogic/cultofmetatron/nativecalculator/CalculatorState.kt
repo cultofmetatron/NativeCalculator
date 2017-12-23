@@ -40,7 +40,7 @@ class CalculatorState {
                         val value: Float = op1 / op2
                         stack.push(value)
                         operator = null
-                    }
+                    } else -> null // do nothing
                 }
 
 
@@ -52,12 +52,17 @@ class CalculatorState {
         }
     }
 
+    fun pushOperator(op: String): CalculatorState {
+        operator = op
+        return this
+    }
 
 
 
     //push a number onto the stack
     fun pushNumber(number: Float): CalculatorState {
         stack.push(number)
+        calculate() //recalculate
         return this
     }
 

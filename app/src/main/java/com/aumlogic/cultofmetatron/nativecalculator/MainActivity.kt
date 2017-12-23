@@ -71,6 +71,23 @@ class MainActivity : AppCompatActivity() {
         pushDisplayText("9")
     }
 
+    fun onPlus(view: View) {
+        //get the parsed version
+        val parsedEntry : Float? = displayText.text.toString().toFloat()
+        if (parsedEntry !== null) {
+            calculatorState
+                    .calculate() // if there's two numbers, calculate them according to whatever was in there before
+                    .pushOperator("+")
+                    .pushNumber(parsedEntry)
+        }
+        pristine = true
+        updateDisplay()
+    }
+
+    fun updateDisplay() {
+        displayText.text = calculatorState.getLatestCalculatedValue().toString()
+    }
+
 
 
 }
