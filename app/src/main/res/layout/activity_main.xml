@@ -88,6 +88,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="7dp"
         android:layout_marginEnd="16dp"
+        android:onClick="onEquals"
         android:text="="
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -113,6 +114,7 @@
         android:layout_height="80dp"
         android:layout_marginBottom="7dp"
         android:layout_marginStart="7dp"
+        android:onClick="onClear"
         android:text="C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/num_0" />

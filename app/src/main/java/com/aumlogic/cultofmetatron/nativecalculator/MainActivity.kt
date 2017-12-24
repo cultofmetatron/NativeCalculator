@@ -5,6 +5,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.View
 
+
 class MainActivity : AppCompatActivity() {
     var entry: String = ""
     var calculatorState = CalculatorState()
@@ -71,17 +72,48 @@ class MainActivity : AppCompatActivity() {
         pushDisplayText("9")
     }
 
-    fun onPlus(view: View) {
-        //get the parsed version
-        val parsedEntry : Float? = displayText.text.toString().toFloat()
-        if (parsedEntry !== null) {
-            calculatorState
-                    .calculate() // if there's two numbers, calculate them according to whatever was in there before
-                    .pushOperator("+")
+    fun onClear(view: View) {
+        displayText.text = "0"
+        calculatorState.clear()
+        pristine = true
+    }
+
+    fun onEquals(view: View) {
+        val parsedEntry: Float? = displayText.text.toString().toFloat()
+        //println("the parsedEntry -> ", + parsedEntry)
+
+        if (parsedEntry !== null && !pristine) {
+            val value = calculatorState
+                    .calculate()
                     .pushNumber(parsedEntry)
+                    .getLatestCalculatedValue()
+
+            println("the value: " + value)
+            if (value !== null) {
+                displayText.text = value.toString()
+            } else {
+                displayText.text = ""
+            }
         }
         pristine = true
-        updateDisplay()
+
+    }
+
+    fun onPlus(view: View) {
+        //get the parsed version
+        if (!pristine) {
+            val parsedEntry: Float? = displayText.text.toString().toFloat()
+            if (parsedEntry !== null) {
+                calculatorState
+                        .calculate() // if there's two numbers, calculate them according to whatever was in there before
+                        .pushOperator("+")
+                        .pushNumber(parsedEntry)
+            }
+            pristine = true
+            updateDisplay()
+        } else {
+            calculatorState.pushOperator("+")
+        }
     }
 
     fun updateDisplay() {
